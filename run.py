@@ -14,17 +14,28 @@ def util(source_dir,target_dir):
                 print(i,full_file)
                 i +=1
 
-
-    print("Select item. E.g. 1")
-    temp = input().lower().strip()
-    list_files_num=temp.split()
-    for c in list_files_num:
-        i_c=int(c)
-        if i_c<=len(list_files):
-            shutil.copy(list_files[i_c],target_dir)
-            print("Zipping file",list_files[i_c])
+    # it is inclusive, meaning 2 and 5 will be in it
+    print("Select item(s). E.g. 1 3-5 15 ")
+    temp_str = input().lower().strip()
+    temp_list=temp_str.split(" ")
+    for temp in temp_list:
+        if "-" in temp:
+            # range
+            list_files_num=temp.split("-")
+            low=int(list_files_num[0])
+            high=int(list_files_num[1])
         else:
-            print("Skipping invalid file number: Out of range",i_c)
+            low=int(temp)
+            high=low
+        if high>=len(list_files):
+            print("Invalid: Too high",high)
+            return
+        for i_c in range(low,high+1):
+            shutil.copy(list_files[i_c],target_dir)
+            print("Zipping file",i_c,list_files[i_c])
+                
+        
+    print("NEW SUBSECTION!")
 
 
 
@@ -33,7 +44,11 @@ def util(source_dir,target_dir):
 print("starting")
 sample_dir=os.path.join(".","samples")
 sword_dir=os.path.join(sample_dir,"swords")
+gui_dir=os.path.join(sample_dir,"gui")
 wool_dir=os.path.join(sample_dir,"wool")
+sky_dir=os.path.join(sample_dir,"sky")
+particle_dir=os.path.join(sample_dir,"particles")
+crosshair_dir=os.path.join(sample_dir,"crosshair")
 target_base =  os.path.join(".","target") 
 zipfile_name=os.path.join(".","walrus")
 
@@ -60,6 +75,21 @@ util(sword_dir,target_dir)
 target_dir=os.path.join(target_dir_temp,"blocks")
 os.mkdir(target_dir)
 util(wool_dir,target_dir)
+
+target_dir=os.path.join(target_dir_temp,"particle")
+os.mkdir(target_dir)
+util(particle_dir,target_dir)
+
+target_dir=os.path.join(target_dir_temp,"environment")
+os.mkdir(target_dir)
+util(sky_dir,target_dir)
+
+target_dir=os.path.join(target_dir_temp,"gui")
+os.mkdir(target_dir)
+util(crosshair_dir,target_dir)
+
+
+
 
 
 # add description
