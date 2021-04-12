@@ -17,6 +17,8 @@ def util(source_dir,target_dir):
     # it is inclusive, meaning 2 and 5 will be in it
     print("Select item(s). E.g. 1 3-5 15 ")
     temp_str = input().lower().strip()
+    if temp_str=="":
+        return
     temp_list=temp_str.split(" ")
     for temp in temp_list:
         if "-" in temp:
