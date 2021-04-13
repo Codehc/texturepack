@@ -13,7 +13,7 @@ Steps:
 8. Put it on top of any texture pack you have active.
 9. HJAHve FUneNENE!!!JKL!JKL!!
 
- 
+For Mac Users.
 This part is a little different because downloading git is the hardest part.
 1. Download Python 3.9 (https://www.python.org/downloads/)
 2. Go to the git website (https://git-scm.com/downloads).
