@@ -1,6 +1,5 @@
 import os
 import shutil
-import zipfile
 
 def util(source_dir,target_dir):
     # copying files
@@ -15,7 +14,7 @@ def util(source_dir,target_dir):
                 i +=1
 
     # it is inclusive, meaning 2 and 5 will be in it
-    print("Select item(s). E.g. 1 3-5 15 ")
+    print("Select the item(s) you want. E.g. 1 3-5 15 ")
     temp_str = input().lower().strip()
     if temp_str=="":
         return
@@ -34,23 +33,20 @@ def util(source_dir,target_dir):
             return
         for i_c in range(low,high+1):
             shutil.copy(list_files[i_c],target_dir)
-            print("Zipping file",i_c,list_files[i_c])
                 
-        
-    print("NEW SUBSECTION!")
+    sub_message = f"{target_dir} Selected"
+    sub_message.title()
+    print(sub_message)
 
 
-
-
-
-print("starting")
+print("Please select the items you want in your mashup.")
 sample_dir=os.path.join(".","samples")
 sword_dir=os.path.join(sample_dir,"swords")
 gui_dir=os.path.join(sample_dir,"gui")
 wool_dir=os.path.join(sample_dir,"wool")
 sky_dir=os.path.join(sample_dir,"sky")
 particle_dir=os.path.join(sample_dir,"particles")
-crosshair_dir=os.path.join(sample_dir,"crosshair")
+gui_dir=os.path.join(sample_dir,"gui")
 target_base =  os.path.join(".","target") 
 zipfile_name=os.path.join(".","walrus")
 
@@ -78,21 +74,20 @@ target_dir=os.path.join(target_dir_temp,"blocks")
 os.mkdir(target_dir)
 util(wool_dir,target_dir)
 
-target_dir=os.path.join(target_dir_temp,"particle")
-os.mkdir(target_dir)
-util(particle_dir,target_dir)
-
+# add sky
 target_dir=os.path.join(target_dir_temp,"environment")
 os.mkdir(target_dir)
 util(sky_dir,target_dir)
 
-target_dir=os.path.join(target_dir_temp,"gui")
+# choose particles
+target_particle_dir=os.path.join(target_dir_temp,"particle")
 os.mkdir(target_dir)
-util(crosshair_dir,target_dir)
+util(particle_dir, target_particle_dir)
 
-
-
-
+# choose gui
+target_gui_dir=os.path.join(target_dir_temp,"gui")
+os.mkdir(target_gui_dir)
+util(particle_dir, target_gui_dir)
 
 # add description
 full_file=os.path.join(sample_dir,"pack.mcmeta")
@@ -101,6 +96,7 @@ shutil.copy(full_file,target_base)
 # add pack image
 full_file2=os.path.join(sample_dir,"pack.png")
 shutil.copy(full_file2,target_base)
+
 # create a zip file
 shutil.make_archive(zipfile_name, 'zip', root_dir=target_base)
 print("finished")
